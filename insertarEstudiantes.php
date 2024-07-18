@@ -5,6 +5,7 @@
     $usuario='root';
     $contraseña='';
     $nombreBaseDatos='institutocatec';
+    //prueba
 
     //PASO2. CREAR Y ESTABLECER LA CONEXION
     $conexion=new mysqli($nombreServidor,$usuario,$contraseña,$nombreBaseDatos);
