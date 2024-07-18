@@ -4,7 +4,7 @@
     $nombreServidor='localhost';
     $usuario='root';
     $contraseña='';
-    $nombreBaseDatos='institutocatec';
+    $nombreBaseDatos='intitutocatec';
     //prueba
     
     //PASO2. CREAR Y ESTABLECER LA CONEXION
