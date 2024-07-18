@@ -1,10 +1,12 @@
 <?php
     //PASO 1. Conexion con el Servidor
     //variables en php $nombrevariable
-    $nombreServidor='localhost';
+    $nombreServidor='localhost:8080';
     $usuario='root';
     $contraseña='';
     $nombreBaseDatos='institutocatec';
+
+    //prueba zzz
 
     //PASO2. CREAR Y ESTABLECER LA CONEXION
     $conexion=new mysqli($nombreServidor,$usuario,$contraseña,$nombreBaseDatos);
