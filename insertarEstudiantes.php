@@ -26,7 +26,7 @@
     $fechaNacimiento=$_POST['fechaNacimiento'];
 
     //Paso 5. Crear la consulta SQL
-    $sql="INSERT INTO estudiante(Ci,Nombre,Apellido,Edad,Correo,Carrera,Celular,FechaNacimiento) VALUES('$ci','$nombre','$apellido','$edad','$correo','$carrera','$celular','$fechaNacimiento')";
+    $sql="INSERT INTO estudiante(CI,NOMBRE,APELLIDO,EDAD,CORREO,CARRERA,CELULAR,FECHANACIMIENTO) VALUES('$ci','$nombre','$apellido','$edad','$correo','$carrera','$celular','$fechaNacimiento')";
 
     //PASO 6. Enviar la consulta SQL al servidor
     if($conexion->query($sql)===TRUE){
