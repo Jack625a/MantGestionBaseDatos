@@ -36,6 +36,7 @@
             <option value="Turismo">Turismo</option>
             <option value="Secretariado ejecutivo">Secretariado ejecutivo</option>
             <option value="Todos">Todos los Estudiantes</option>
+            <option value="Filtrado">Filtrado</option>
         </select>
         <input type="submit" value="Buscar Estudiantes">
     </form>
@@ -77,7 +78,27 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         }else{
             echo "Sin resultados para la consulta realizada";
         }
-    }else{
+    }elseif($carreraSeleccionada=='Filtrado')
+    {
+        //Consulta sql
+        $sqlF = "SELECT Carrera, AVG(Edad) AS PromedioEdad\n". "FROM estudiante\n". "GROUP BY Carrera\n". "HAVING AVG(Edad)>21\n". "ORDER BY Carrera ASC;";
+        $resultadoFiltrado=$conexion->query($sqlF);
+        //Mostrar los resultados
+        if($resultadoFiltrado->num_rows>0){
+            echo "<table>";
+            echo "<tr><th>Carrera</th><th>Promedio Edad</th></tr>";
+            
+            while($fila=$resultadoFiltrado->fetch_assoc()){
+                echo "<tr><td>{$fila['Carrera']}</td><td>{$fila['PromedioEdad']}</td></tr>";
+            }
+            echo "</table>";
+        }else{
+            echo "No se encontraron resultados";
+        }
+    }
+    
+    
+    else{
         //Paso 4. Realizar la consulta SQL
     $sql="SELECT * FROM estudiante WHERE Carrera=? ORDER BY Apellido ASC";
     $sqlS=$conexion->prepare($sql);
