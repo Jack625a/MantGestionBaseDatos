@@ -35,7 +35,7 @@
             <option value="Diseño Grafico" >Diseño Grafico</option>
             <option value="Turismo">Turismo</option>
             <option value="Secretariado ejecutivo">Secretariado ejecutivo</option>
-            <option value="*">Todos los Estudiantes</option>
+            <option value="Todos">Todos los Estudiantes</option>
         </select>
         <input type="submit" value="Buscar Estudiantes">
     </form>
@@ -61,9 +61,25 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     if ($conexion->connect_error){
         die("Conexion fallida ". $conexion->connect_error);
     }
-   
-    //Paso 4. Realizar la consulta SQL
-    $sql="SELECT * FROM estudiante WHERE Carrera=?";
+    //Para mostrar todos los estudiantes
+    if ($carreraSeleccionada=='Todos'){
+        $sqlT="SELECT * FROM estudiante ORDER BY Apellido ASC";
+        $resultadoTodos=$conexion->query($sqlT);
+        //Paso 6. Verificar los resultados
+        if ($resultadoTodos->num_rows>0){
+           
+            echo "<table>";
+            echo "<tr><th>CI</th><th>Nombre Completo</th><th>Carrera</th></tr>";
+            while($fila=$resultadoTodos->fetch_assoc()){
+                echo "<tr><td>". $fila["Ci"]. "</td><td>". $fila["Nombre"]." ". $fila["Apellido"]. "</td><td>". $fila["Carrera"]."</td></tr>"; 
+        }
+        echo "</table>";
+        }else{
+            echo "Sin resultados para la consulta realizada";
+        }
+    }else{
+        //Paso 4. Realizar la consulta SQL
+    $sql="SELECT * FROM estudiante WHERE Carrera=? ORDER BY Apellido ASC";
     $sqlS=$conexion->prepare($sql);
     $sqlS->bind_param("s",$carreraSeleccionada);
     $sqlS->execute();
@@ -82,6 +98,9 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         echo "Sin resultados para la consulta realizada";
     }
 
+    }
+
+    
     //Paso 7. Cerrar Conexion
     $conexion->close();
 }
