@@ -4,7 +4,7 @@
     $nombreServidor='localhost';
     $usuario='root';
     $contraseña='';
-    $nombreBaseDatos='copa';
+    $nombreBaseDatos='institutocatec';
 
     //PASO2. CREAR Y ESTABLECER LA CONEXION
     $conexion=new mysqli($nombreServidor,$usuario,$contraseña,$nombreBaseDatos);
