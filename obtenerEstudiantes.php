@@ -37,6 +37,7 @@
             <option value="Secretariado ejecutivo">Secretariado ejecutivo</option>
             <option value="Todos">Todos los Estudiantes</option>
             <option value="Filtrado">Filtrado</option>
+            <option value="Funcion">Funciones Agregadas</option>
         </select>
         <input type="submit" value="Buscar Estudiantes">
     </form>
@@ -62,6 +63,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     if ($conexion->connect_error){
         die("Conexion fallida ". $conexion->connect_error);
     }
+   
     //Para mostrar todos los estudiantes
     if ($carreraSeleccionada=='Todos'){
         $sqlT="SELECT * FROM estudiante ORDER BY Apellido ASC";
@@ -95,6 +97,48 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         }else{
             echo "No se encontraron resultados";
         }
+    }elseif($carreraSeleccionada=="Funcion"){
+        //Ejercicio Funciones Agregadas
+    /*Calcular y mostrar:
+        El número total de estudiantes.
+        La edad total de todos los estudiantes.
+        La edad promedio de los estudiantes.
+        La edad máxima de los estudiantes.
+        La edad mínima de los estudiantes.*/
+
+    //Consulta SQL PARA LAS FUNCIONES AGREGADAS
+    $sqlFunciones = "SELECT\n"
+
+    . "    COUNT(*) AS TotalEstudiantes,\n"
+
+    . "    SUM(Edad) AS EdadTotal,\n"
+
+    . "    AVG(Edad) AS PromedioEdad,\n"
+
+    . "    MAX(Edad) AS EdadMaxima,\n"
+
+    . "    MIN(Edad) AS EdadMinima\n"
+
+    . "    \n"
+
+    . "FROM\n"
+
+    . "    estudiante;";
+    //OBTENCION DE RESULTADOS
+    $resultadoFunciones=$conexion->query($sqlFunciones);
+    //Mostrar los resultados de los calculos en una tabla
+    if($resultadoFunciones->num_rows>0){
+        $filaFuncion=$resultadoFunciones->fetch_assoc();
+        echo "<br><br>";
+        echo "<h1>Funciones agregadas</h1>";
+        echo "<table class='resultados'>";
+        echo "<tr><th>Numero de Estudiantes</th><th>Edad Total</th><th>Promedio Edad</th><th>Edad Maxima</th><th>Edad Minima</th></tr>";
+        echo "<tr><td>{$filaFuncion['TotalEstudiantes']}</td><td>{$filaFuncion['EdadTotal']}</td><td>{$filaFuncion['PromedioEdad']}</td><td>{$filaFuncion['EdadMaxima']}</td><td>{$filaFuncion['EdadMinima']}</td></tr>";
+        echo "</table>";
+    }else{
+        echo "No se puedo calcular los resultados";
+    }
+
     }
     
     
@@ -120,6 +164,50 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     }
 
     }
+
+
+     //Ejercicio Funciones Agregadas
+    /*Calcular y mostrar:
+        El número total de estudiantes.
+        La edad total de todos los estudiantes.
+        La edad promedio de los estudiantes.
+        La edad máxima de los estudiantes.
+        La edad mínima de los estudiantes.*/
+
+    //Consulta SQL PARA LAS FUNCIONES AGREGADAS
+    $sqlFunciones = "SELECT\n"
+
+    . "    COUNT(*) AS TotalEstudiantes,\n"
+
+    . "    SUM(Edad) AS EdadTotal,\n"
+
+    . "    AVG(Edad) AS PromedioEdad,\n"
+
+    . "    MAX(Edad) AS EdadMaxima,\n"
+
+    . "    MIN(Edad) AS EdadMinima\n"
+
+    . "    \n"
+
+    . "FROM\n"
+
+    . "    estudiante;";
+    //OBTENCION DE RESULTADOS
+    $resultadoFunciones=$conexion->query($sqlFunciones);
+    //Mostrar los resultados de los calculos en una tabla
+    if($resultadoFunciones->num_rows>0){
+        $filaFuncion=$resultadoFunciones->fetch_assoc();
+        echo "<br><br>";
+        echo "<h1>Funciones agregadas</h1>";
+        echo "<table class='resultados'>";
+        echo "<tr><th>Numero de Estudiantes</th><th>Edad Total</th><th>Promedio Edad</th><th>Edad Maxima</th><th>Edad Minima</th></tr>";
+        echo "<tr><td>{$filaFuncion['TotalEstudiantes']}</td><td>{$filaFuncion['EdadTotal']}</td><td>{$filaFuncion['PromedioEdad']}</td><td>{$filaFuncion['EdadMaxima']}</td><td>{$filaFuncion['EdadMinima']}</td></tr>";
+        echo "</table>";
+    }else{
+        echo "No se puedo calcular los resultados";
+    }
+
+
 
     
     //Paso 7. Cerrar Conexion
