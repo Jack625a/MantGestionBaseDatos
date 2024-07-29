@@ -33,22 +33,24 @@
     </style>
 </head>
 <body>
-    <script>
-        function abrirPantalla(ci){
-            document.getElementById("pantalla").style.display="block";
-            fetch('estudianteSeleccionado.php?ci=${ci}')
-                .then(respuesta=>respuesta.json())
-                .then(data=>{
-                document.getElementById("ci").value=data.ci;
-                document.getElementById("nombre").value=data.nombre;
-                document.getElementById("apellido").value=data.apellido;
-                document.getElementById("edad").value=data.edad;
-                document.getElementById("correo").value=data.correo;
-                document.getElementById("carrera").value=data.carrera;
-                document.getElementById("celular").value=data.celular;
-                document.getElementById("fechaNacimiento").value=data.fechaNacimiento;
+<script>
+        function abrirPantalla(ci,nombre,apellido,edad,correo,carrera,celular,fechaNacimiento) {
+            document.getElementById("pantalla").style.display=block;
+            document.getElementById("ci").value=ci
+            document.getElementById("nombre").value=nombre;
+            document.getElementById("apellido").value=apellido;
+            document.getElementById("edad").value=edad;
+            document.getElementById("correo").value=correo;
+            document.getElementById("carrera").value=carrera;
+            document.getElementById("celular").value=celular;
+            document.getElementById("fechaNacimiento").value=fechaNacimiento;
+       }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.cerrar').addEventListener('click', () => {
+                document.getElementById("pantalla").style.display = "none";
             });
-        }
+        });
     </script>
     <h2>Lista de Estudiantes</h2>
     <?php
@@ -85,7 +87,17 @@
                 <td>{$fila['Carrera']}</td>
                 <td>{$fila['Celular']}</td>
                 <td>{$fila['FechaNacimiento']}</td>
-                <td><button class='boton-actualizar' onclick='abrirPantalla({$fila['Ci']})'>Actualizar</button></td>
+                <td><button class='boton-actualizar' 
+                    onclick='abrirPantalla(
+                    '{$fila['Ci']}',
+                    '{$fila['Nombre']}',
+                    '{$fila['Apellido']}',
+                    '{$fila['Edad']}',
+                    '{$fila['Correo']}',
+                    '{$fila['Carrera']}',
+                    '{$fila['Celular']}',
+                    '{$fila['FechaNacimiento']}')'>Actualizar</button></td>
+
                 <td><button class='boton-eliminar'>Eliminar</button></td>
             </tr>";
         }
@@ -98,6 +110,8 @@
     //Paso 7. Cerrar la conexion
     $conexion->close();
     ?>
+
+
     <div class="pantalla" id="pantalla">
         <div class="pantalla-contenido">
             <span class="cerrar">❌</span>
