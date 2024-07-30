@@ -62,6 +62,20 @@
             document.getElementById("fechaNacimiento").value=fechaNacimiento;
        }
 
+       function eliminarEstudiante(ci){
+            if(confirm("¿Estas seguro de que deseas eliminar al estudiante?")){
+                var puente=new XMLHttpRequest();
+                puente.open("POST","eliminar.php", true);
+                puente.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                puente.onreadystatechange=function(){
+                    if(puente.readyState==4 && puente.status==200){
+                        alert(puente.responseText);
+                        location.reload()
+                    }
+                };
+                puente.send("ci="+ci)
+            }
+       }
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('.cerrar').addEventListener('click', () => {
                 document.getElementById("pantalla").style.display = "none";
@@ -114,7 +128,7 @@
                     \"{$fila['Celular']}\",
                     \"{$fila['FechaNacimiento']}\")'>Actualizar</button></td>
 
-                <td><button class='boton-eliminar'>Eliminar</button></td>
+                <td><button class='boton-eliminar' onclick='eliminarEstudiante( \"{$fila['Ci']}\")'>Eliminar</button></td>
             </tr>";
         }
         echo "</table>";

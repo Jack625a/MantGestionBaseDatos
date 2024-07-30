@@ -35,7 +35,8 @@ $variacion->bind_param('ississisi',$ci,$nombre,$apellido,$edad,$correo,$carrera,
 
 //Paso 6. Enviar la consulta sql al servidor
 if($variacion->execute()){
-    echo "ESTUDIANTE ACTUALIZADO CORRECTAMENTE";
+    header("Location:actualizarEstudiantes.php");
+    exit();
 }else{
     echo "Error al actulizar al estudiante ";
 }
