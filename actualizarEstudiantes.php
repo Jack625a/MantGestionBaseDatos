@@ -23,19 +23,35 @@
             text-align: center;
         }
         .pantalla{
+            position: fixed;
+            top: 50%;
+            left: 50%;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            width: 50%;
-            margin: 30px;
+            width: 30%;
+            padding: 20px;
+            background-color: #fff;
+            z-index: 1000;
+            transform:translate(-50%,-50%);
+            display:none;
+        }
+        .pantalla-contenido{
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content:center ;
+        }
+        .cerrar{
+            cursor: pointer;
+            font-size: 20px;
+            color: red;
+            align-self: flex-end;
         }
     </style>
 </head>
 <body>
 <script>
         function abrirPantalla(ci,nombre,apellido,edad,correo,carrera,celular,fechaNacimiento) {
-            document.getElementById("pantalla").style.display=block;
+            document.getElementById("pantalla").style.display="block";
             document.getElementById("ci").value=ci
             document.getElementById("nombre").value=nombre;
             document.getElementById("apellido").value=apellido;
@@ -89,14 +105,14 @@
                 <td>{$fila['FechaNacimiento']}</td>
                 <td><button class='boton-actualizar' 
                     onclick='abrirPantalla(
-                    '{$fila['Ci']}',
-                    '{$fila['Nombre']}',
-                    '{$fila['Apellido']}',
-                    '{$fila['Edad']}',
-                    '{$fila['Correo']}',
-                    '{$fila['Carrera']}',
-                    '{$fila['Celular']}',
-                    '{$fila['FechaNacimiento']}')'>Actualizar</button></td>
+                    \"{$fila['Ci']}\",
+                    \"{$fila['Nombre']}\",
+                    \"{$fila['Apellido']}\",
+                    \"{$fila['Edad']}\",
+                    \"{$fila['Correo']}\",
+                    \"{$fila['Carrera']}\",
+                    \"{$fila['Celular']}\",
+                    \"{$fila['FechaNacimiento']}\")'>Actualizar</button></td>
 
                 <td><button class='boton-eliminar'>Eliminar</button></td>
             </tr>";
